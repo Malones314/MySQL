@@ -51,4 +51,35 @@ MySQL在拿到查询时，会先看看查询缓存，看看之前是否执行过
 
 ## 存储引擎层
 
+## MySQL语法
 
+### 数据库的创建
+```sql
+CREATE DATABASE databaseName;
+```
+```sql
+mysqladmin -u root -p create databaseName
+Enter password:******
+```
+### 数据库的删除
+```sql
+drop database databaseName;
+```
+```sql
+mysqladmin -u root -p drop databaseName
+Enter password:******
+```
+
+### 数据类型
+
+#### 数值类型
+```sql
+类型                大小        
+tinyint             1Bytes       
+smallint            2Bytes      
+int 或 integer      4Bytes       
+bigint              8Bytes     
+float               4Byte
+double              8Byte
+decimal     decimal (a, b)  如果a>b, 为a+2否则为b+2
+```
