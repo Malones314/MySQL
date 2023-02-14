@@ -52,7 +52,13 @@ MySQL在拿到查询时，会先看看查询缓存，看看之前是否执行过
 ## 存储引擎层
 
 ## MySQL语法
-
+```sql
+[]用于指明可选字或子句
+当某一语法成分由多个可选项组成时，可选项应用竖线“|”分开
+当必须选择一组选择中的某一成员时，可选项将列在{}中
+    eg: {a|b}...... a或b其中一个必须被选择
+    
+```
 ### 数据库的创建
 ```sql
 CREATE DATABASE databaseName;
@@ -74,12 +80,41 @@ Enter password:******
 
 #### 数值类型
 ```sql
-类型                大小        
-tinyint             1Bytes       
-smallint            2Bytes      
-int 或 integer      4Bytes       
-bigint              8Bytes     
-float               4Byte
-double              8Byte
+类型                大小(Byte)        
+tinyint             1      
+smallint            2      
+int 或 integer      4       
+bigint              8     
+float               4
+double              8
 decimal     decimal (a, b)  如果a>b, 为a+2否则为b+2
+```
+#### 时间类型
+```sql
+类型        大小(Byte)  格式
+date        3           YYYY-MM-DD
+time        3           HH:MM:SS
+year        1           YYYY
+datetime    8           YYYY-MM-DD hh:mm:ss '1000-01-01 00:00:00' 到 '9999-12-31 23:59:59'	
+timestamp   4           YYYY-MM-DD hh:mm:ss '1970-01-01 00:00:01' UTC 到 '2038-01-19 03:14:07' UTC
+```
+
+#### 字符串类型
+```sql
+类型        最大大小(Byte)  
+char        255         定长字符串
+varchar     65535       变长字符串
+tinyblob    255         二进制字符串
+tinytext    255         文本字符串
+blob        65535
+text        65535
+mediumblob  2^24        
+mediumtext  2^24
+longblob    2^32
+longtext    2^32
+```
+
+#### 创建数据表
+```sql
+create table tableName ( columnName columnType, ......);
 ```
