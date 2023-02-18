@@ -101,6 +101,12 @@ timestamp   4           YYYY-MM-DD hh:mm:ss '1970-01-01 00:00:01' UTC 到 '2038-
 
 #### 字符串类型
 ```sql
+用单引号或双引号括起来的字符序列
+一个字符串文字可能有一个可选的字符集引介词和COLLATE子句
+引介词：告诉解析程序，“后面将要出现的字符串使用字符集X。”
+COLLATE：排序规则，告知mysql如何进行排序和比较
+```
+```sql
 类型        最大大小(Byte)  
 char        255         定长字符串
 varchar     65535       变长字符串
@@ -114,7 +120,37 @@ longblob    2^32
 longtext    2^32
 ```
 
+### 创建
+
 #### 创建数据表
 ```sql
 create table tableName ( columnName columnType, ......);
 ```
+
+### 优化
+#### where优化
+**1.** 去除不必要的括号
+```sql
+((a and b) and c or (((a and b) and (c and d))))
+改为
+(a and b and c) or (a and b and c and d)
+```
+**2.** 常量重叠
+```sql
+(a<b and b=c) and a=5
+改为
+b>5 and b=c and a=5
+```
+
+**3.** 去除常量条件
+```sql
+(B>=5 and B=5) or (B=6 and 5=5) OR (B=7 and 5=6)
+改为
+B=5 or B=6
+```
+#### 范围优化
+**1.** 用常量替换条件
+**2.** 去除总是为true或false的条件
+**3.** 删不必要的true和false常量
+
+#### 索引合并
