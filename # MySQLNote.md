@@ -57,7 +57,8 @@ MySQL在拿到查询时，会先看看查询缓存，看看之前是否执行过
 当某一语法成分由多个可选项组成时，可选项应用竖线“|”分开
 当必须选择一组选择中的某一成员时，可选项将列在{}中
     eg: {a|b}...... a或b其中一个必须被选择
-    
+用;来区分每一条语句
+-- 注释 
 ```
 ### 数据库的创建
 ```sql
@@ -69,7 +70,7 @@ Enter password:******
 ```
 ### 数据库的删除
 ```sql
-drop database databaseName;
+DROP DATABASE databaseName;
 ```
 ```sql
 mysqladmin -u root -p drop databaseName
@@ -81,22 +82,22 @@ Enter password:******
 #### 数值类型
 ```sql
 类型                大小(Byte)        
-tinyint             1      
-smallint            2      
-int 或 integer      4       
-bigint              8     
-float               4
-double              8
-decimal     decimal (a, b)  如果a>b, 为a+2否则为b+2
+TINYINT             1      
+SMALLINT            2      
+INT 或 INTEGER      4       
+BIGINT              8     
+FLOAT               4
+DOUBLE              8
+DECIMAL     DECIMAL (a, b)  如果a>b, 为a+2否则为b+2
 ```
 #### 时间类型
 ```sql
 类型        大小(Byte)  格式
-date        3           YYYY-MM-DD
-time        3           HH:MM:SS
-year        1           YYYY
-datetime    8           YYYY-MM-DD hh:mm:ss '1000-01-01 00:00:00' 到 '9999-12-31 23:59:59'	
-timestamp   4           YYYY-MM-DD hh:mm:ss '1970-01-01 00:00:01' UTC 到 '2038-01-19 03:14:07' UTC
+DATE        3           YYYY-MM-DD
+TIME        3           HH:MM:SS
+YEAR        1           YYYY
+DATETIME    8           YYYY-MM-DD hh:mm:ss '1000-01-01 00:00:00' 到 '9999-12-31 23:59:59'	
+TIMESTAMP   4           YYYY-MM-DD hh:mm:ss '1970-01-01 00:00:01' UTC 到 '2038-01-19 03:14:07' UTC
 ```
 
 #### 字符串类型
@@ -108,49 +109,61 @@ COLLATE：排序规则，告知mysql如何进行排序和比较
 ```
 ```sql
 类型        最大大小(Byte)  
-char        255         定长字符串
-varchar     65535       变长字符串
-tinyblob    255         二进制字符串
-tinytext    255         文本字符串
-blob        65535
-text        65535
-mediumblob  2^24        
-mediumtext  2^24
-longblob    2^32
-longtext    2^32
+CHAR        255         定长字符串
+VARCHAR     65535       变长字符串
+TINYBLOB    255         二进制字符串
+TINYTEXT    255         文本字符串
+BLOB        65535
+TEXT        65535
+MEDIUMBLOB  2^24        
+MEDIUMTEXT  2^24
+LONGBLOB    2^32
+LONGTEXT    2^32
 ```
 
 ### 创建
 
 #### 创建数据表
 ```sql
-create table tableName ( columnName columnType, ......);
+CREATE TABLE tableName ( columnName columnType, ......);
 ```
 
 ### 优化
-#### where优化
+#### WHERE优化
 **1.** 去除不必要的括号
 ```sql
-((a and b) and c or (((a and b) and (c and d))))
+((a AND b) AND c OR (((a AND b) AND (c AND d))))
 改为
-(a and b and c) or (a and b and c and d)
+(a AND b AND c) OR (a AND b AND c AND d)
 ```
 **2.** 常量重叠
 ```sql
-(a<b and b=c) and a=5
+(a<b AND b=c) AND a=5
 改为
-b>5 and b=c and a=5
+b>5 AND b=c AND a=5
 ```
 
 **3.** 去除常量条件
 ```sql
-(B>=5 and B=5) or (B=6 and 5=5) OR (B=7 and 5=6)
+(B>=5 AND B=5) or (B=6 AND 5=5) OR (B=7 AND 5=6)
 改为
-B=5 or B=6
+B=5 OR B=6
 ```
 #### 范围优化
 **1.** 用常量替换条件
-**2.** 去除总是为true或false的条件
-**3.** 删不必要的true和false常量
+**2.** 去除总是为``TRUE``或``FALSE``的条件
+**3.** 删不必要的``TRUE``和``FALSE``常量
 
 #### 索引合并
+
+### 查询
+```sql
+SELECT * 查询整个列表
+SELECT xxx  查询xxx，xxx也可以使用加减乘除取模
+DISTINCT 不显示重复项
+xxx AS yyy  yyy为xxx的描述性名称 yyy可为字符串
+FROM 指明要查询的表
+WHERE 查找条件，用于筛选数据
+ORDER BY 排序方式
+REGEXP xxx 查询使用xxx正则表达式
+```
