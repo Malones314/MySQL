@@ -158,12 +158,26 @@ B=5 OR B=6
 
 ### 查询
 ```sql
-SELECT * 查询整个列表
-SELECT xxx  查询xxx，xxx也可以使用加减乘除取模
-DISTINCT 不显示重复项
-xxx AS yyy  yyy为xxx的描述性名称 yyy可为字符串
-FROM 指明要查询的表
-WHERE 查找条件，用于筛选数据
-ORDER BY 排序方式
-REGEXP xxx 查询使用xxx正则表达式
+SELECT *        查询整个列表
+SELECT xxx      查询xxx，xxx也可以使用加减乘除取模
+DISTINCT        不显示重复项
+xxx AS yyy      yyy为xxx的描述性名称 yyy可为字符串
+FROM            指明要查询的表
+WHERE           查找条件，用于筛选数据
+ORDER BY        排序方式
+ORDER BY A, B   先按A排, 在A的中按B排，可在A后用DESC，表示A降序排
+ORDER BY...DESC 降序排
+REGEXP xxx      查询使用xxx正则表达式
+IN (.....)      ()内为条件
+BETWEEN X AND Y 数值在X, Y之间，包括X Y
+'%'             代表任意个数的任意字符
+'_'             代表单个字符
+LIKE 'xxx'      用于检索'xxx'格式的字符串
+'^'             表示字符串的开头
+'$'             表示字符串的结尾
+'|'             表示多种搜寻模式
+IS NULL         没有数据
+LIMIT x         返回查询结果前x位   
+LIMIT a, b      跳过前a位返回a后的b位
+                注：LIMIT要放在所有语句最后
 ```
