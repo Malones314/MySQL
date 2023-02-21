@@ -160,7 +160,7 @@ B=5 OR B=6
 ```sql
 SELECT *        查询整个列表
 SELECT xxx      查询xxx，xxx也可以使用加减乘除取模
-DISTINCT        不显示重复项
+DISTINCT        不显示重复项 位置紧跟着SELECT
 xxx AS yyy      yyy为xxx的描述性名称 yyy可为字符串
 FROM            指明要查询的表
 WHERE           查找条件，用于筛选数据
@@ -181,3 +181,34 @@ LIMIT x         返回查询结果前x位
 LIMIT a, b      跳过前a位返回a后的b位
                 注：LIMIT要放在所有语句最后
 ```
+### 连接
+#### 内连接
+```sql
+INNER JOIN : INNER 可以不写
+SELECT * FROM XXX INNER JOIN YYY ON XXX.xxx = YYY.yyy:
+    在XXX表中内连接YYY让XXX的xxx=YYY的yyy
+    如果要用到的数据在XXX和YYY两张表中都存在，则要说明要用的数据来自哪一张。
+```
+#### 跨数据库连接
+```sql
+SELECT * FROM XXX JOIN databaseName.YYY .......
+    跨数据库连接YYY，必须要在YYY前加上数据库的名称
+```
+
+#### 自连接
+```sql
+SELECT * FROM XXX AS X1 JOIN XXX AS X2 ......
+    两者至少有一个要有别名让两张表区别开来
+```
+
+#### 多表连接
+```sql
+SELECT *
+FROM X1 
+JOIN X2
+JOIN X3
+JOIN X4......
+    使用多个JOIN则为多表连接，每一个JOIN后都可以加上ON条件
+```
+
+#### 复合连接条件
