@@ -203,8 +203,7 @@ SELECT * FROM XXX AS X1 JOIN XXX AS X2 ......
 
 #### 多表连接
 ```sql
-SELECT *
-FROM X1 
+SELECT * FROM X1 
 JOIN X2
 JOIN X3
 JOIN X4......
@@ -212,3 +211,36 @@ JOIN X4......
 ```
 
 #### 复合连接条件
+```sql
+使用多个条件来连接两个表
+```
+
+#### 隐式连接
+```sql
+SELECT * 
+FROM orders
+JOIN customers
+    ON orders.customer_id = customers.customer_id
+----------------------------------------------------
+SELECT *
+FROM orders, customers
+WHERE orders.customer_id = customers.customer_id
+
+两者等价，后者为implpicit join syntax,应当避免这种使用
+因为如果写错where会得到交叉连接的结果，尽量使用显示连接
+```
+
+#### 外连接
+```sql
+OUTER JOIN: OUTER能省略但是要加上LEFT或者RIGHT
+内连接中不符合条件的查询不会返回结果，
+外连接有LEFT JOIN和RIGHT JOIN，
+LEFT JOIN中左表的记录会被返回，不管条件是否符合
+RIGHT JOIN中右表的记录会被返回，不管条件是否符合
+```
+
+#### 多表外连接
+```sql
+可以和内连接，LEFT JOIN RIGHT　JOIN一起混合使用
+应当避免使用RIGHT JOIN，RIGHT JOIN会让返回的结果变得复杂
+```
