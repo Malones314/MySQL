@@ -244,3 +244,54 @@ RIGHT JOIN中右表的记录会被返回，不管条件是否符合
 可以和内连接，LEFT JOIN RIGHT　JOIN一起混合使用
 应当避免使用RIGHT JOIN，RIGHT JOIN会让返回的结果变得复杂
 ```
+
+#### 自外连接
+```sql
+SELECT * FROM XXX AS X1 LEFT JOIN XXX AS X2 ON .......
+```
+
+#### USING 
+```sql
+当要查询的两个表有完全相同的列时使用
+SELECT* 
+FROM X
+JOIN Y
+    USING (id)
+    --等价于ON X.id = Y.id
+```
+#### 自然连接
+```sql
+NATURAL　JOIN
+使用NATURAL JOIN不需要具体打出列名，数据库引擎会自己基于共同的列连接，
+但是NATURAL JOIN因为是数据库自己判断如何连接，无法控制故可能有意外的结果
+```
+
+#### 交叉连接
+```sql
+SELECT *
+FROM X CROSS JOIN Y
+--等价于FROM X, Y
+X中的每一条记录都会跟Y中的记录结合，也可以不打CROSS JOIN，直接在FROM中打
+几个表，隐式使用交叉连接
+```
+
+#### 联合
+```sql
+使用UNION联合多段查询结果，两者SELECT列的个数要一致，第一段SELECT决定了列名是什么
+```
+
+### 数据处理
+
+#### 插入
+##### 插入单行
+```sql
+在tableName中插入默认值
+INSERT INTO tableNAme
+VALUES(DEFAULT,......)
+或者
+INSERT　INTO tableName(
+    ....,.....,.....
+)VALUES(
+    .....,....,.....
+)
+```
