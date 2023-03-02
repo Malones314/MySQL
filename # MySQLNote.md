@@ -277,11 +277,65 @@ X中的每一条记录都会跟Y中的记录结合，也可以不打CROSS JOIN�
 
 #### 联合
 ```sql
-使用UNION联合多段查询结果，两者SELECT列的个数要一致，第一段SELECT决定了列名是什么
+使用 UNION 来组合两个查询，如果第一个查询返回 M 行，第二个查询返回 N 行，那么组
+合查询的结果一般为 M+N 行。
+
+每个查询必须包含相同的列、表达式和聚集函数。
+
+默认会去除相同行，如果需要保留相同行，使用 UNION ALL。
+
+只能包含一个 ORDER BY 子句，并且必须位于语句的最后。
 ```
 
 ### 数据处理
+#### 常用文本处理函数
+```sql
+LEFT()	    左边的字符
+RIGHT()	    右边的字符
+LOWER()	    转换为小写字符
+UPPER()	    转换为大写字符
+LTRIM()	    去除左边的空格
+RTRIM()	    去除右边的空格
+LENGTH()    长度
+SOUNDEX()   转换为语音值
 
+SELECT * FROM mytable
+WHERE SOUNDEX(col1) = SOUNDEX('apple')
+```
+#### 常用时间函数
+```sql
+ADDDATE()       增加一个日期（天、周等）
+ADDTIME()       增加一个时间（时、分等）
+CURDATE()       返回当前日期
+CURTIME()       返回当前时间
+DATE()          返回日期时间的日期部分
+DATEDIFF()      计算两个日期之差
+DATE_ADD()      高度灵活的日期运算函数
+DATE_FORMAT()	返回一个格式化的日期或时间串
+DAY()	        返回一个日期的天数部分
+DAYOFWEEK()     对于一个日期，返回对应的星期几
+HOUR()	        返回一个时间的小时部分
+MINUTE()        返回一个时间的分钟部分
+MONTH()	        返回一个日期的月份部分
+NOW()	        返回当前日期和时间
+SECOND()        返回一个时间的秒部分
+TIME()	        返回一个日期时间的时间部分
+YEAR()	        返回一个日期的年份部分
+
+SELECT NOW();  ##2023-3-2 11:10:18
+```
+#### 常用数学函数
+```sql
+SIN()	正弦
+COS()	余弦
+TAN()	正切
+ABS()	绝对值
+SQRT()	平方根
+MOD()	余数
+EXP()	指数
+PI()	圆周率
+RAND()	随机数
+```
 #### 插入
 ##### 插入单行
 ```sql
